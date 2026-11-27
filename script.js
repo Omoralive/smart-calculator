@@ -30,6 +30,12 @@ for (let i = 0; i < buttons.length; i++) {
       nextToken();
       return result;
     }
+      if (token === "-") {
+    return -factor();   
+    }
+      if (token === "+") {
+    return factor();    
+    }
 
     return Number(token);
     }
@@ -73,7 +79,7 @@ for (let i = 0; i < buttons.length; i++) {
 
     }
     display.value=calculate()
-    return;
+    return ;
 }
 
     display.value=display.value+value;
