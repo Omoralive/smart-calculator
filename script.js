@@ -78,8 +78,11 @@ for (let i = 0; i < buttons.length; i++) {
 
 
     }
-    display.value=calculate()
+    display.value=formatResult(calculate())
     return ;
+}
+function formatResult(num) {
+  return parseFloat(num.toPrecision(12));
 }
 
     display.value=display.value+value;
