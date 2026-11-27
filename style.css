@@ -12,7 +12,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1e1e2f 0%, #12121a 100%);
+    background: radial-gradient(circle at top, #1b2432 0%, #0d1117 100%);
     padding: 1rem;
 }
 
@@ -20,13 +20,13 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 400px; /* Slightly wider to fit 5 buttons comfortably */
-    background-color: #252736;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    border-radius: 28px;
-    padding: clamp(1.25rem, 4vw, 1.75rem);
-    gap: 1.25rem;
+    max-width: 410px;
+    background: linear-gradient(180deg, #1f2937 0%, #161d27 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    border-radius: 30px;
+    padding: clamp(1.15rem, 4vw, 1.65rem);
+    gap: 1.15rem;
 }
 
 .box {
@@ -35,69 +35,138 @@ body {
 
 #display {
     width: 100%;
-    height: clamp(68px, 14vw, 82px);
+    height: clamp(68px, 14vw, 84px);
     padding: 0 1.25rem;
-    background-color: #181922;
-    color: #ffffff;
-    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    background-color: #0e131a;
+    color: #f8fafc;
+    font-size: clamp(1.5rem, 5vw, 2.05rem);
     font-weight: 500;
-    text-align: right; /* Right-aligns text inside an <input> */
-    border: none;      /* Removes the white inner border */
-    outline: none;     /* Removes focus ring */
-    border-radius: 18px;
-    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: right;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.65);
+    transition: border-color 0.2s ease;
 }
 
-/* Changed to 5 columns to match your 5 buttons per row */
+#display::placeholder {
+    color: #64748b;
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+}
+
+#display:focus {
+    border-color: rgba(56, 189, 248, 0.65);
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 2.5vw, 12px);
+}
+
+/* Dedicated utility row for Delete */
+#row0 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+#row0 .btn[data-value="del"] {
+    width: auto;
+    min-width: clamp(68px, 20%, 84px);
+    aspect-ratio: auto;
+    height: clamp(40px, 9vw, 46px);
+    padding: 0 1rem;
+    border-radius: 14px;
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    background-color: rgba(244, 63, 94, 0.16);
+    color: #fda4af;
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    box-shadow: none;
+}
+
+#row0 .btn[data-value="del"]:hover {
+    background-color: rgba(244, 63, 94, 0.28);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* 5-column keypad rows */
 #row1, #row2, #row3, #row4 {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: clamp(8px, 2.5vw, 12px);
     width: 100%;
-    margin-bottom: clamp(8px, 2.5vw, 12px);
-}
-
-#row4 {
-    margin-bottom: 0;
 }
 
 .btn {
     aspect-ratio: 1 / 1;
     width: 100%;
-    display: flex;           /* Centers text inside <div> buttons */
+    display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #2f3245;
-    color: #f1f1f5;
+    background-color: #283548;
+    color: #f1f5f9;
     font-size: clamp(1rem, 3.8vw, 1.25rem);
     font-weight: 500;
-    border: none;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.28);
     cursor: pointer;
     user-select: none;
-    transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.12s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn:hover {
-    background-color: #3b3f57;
+    background-color: #33445d;
+    border-color: rgba(255, 255, 255, 0.14);
     transform: translateY(-2px);
 }
 
 .btn:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
-/* Highlights the 5th column (AC, 5, =, √) — or remove this block if you want all buttons dark */
-#row1 .btn:last-child,
-#row3 .btn:last-child {
-    background-color: #ff9f1c;
-    color: #12121a;
+/* Operators in row 1 */
+#row1 .btn:not([data-value="AC"]) {
+    background-color: #1e3a5f;
+    color: #7dd3fc;
+    border-color: rgba(125, 211, 252, 0.2);
+}
+
+#row1 .btn:not([data-value="AC"]):hover {
+    background-color: #264b7a;
+}
+
+/* AC button */
+.btn[data-value="AC"] {
+    background-color: #f59e0b;
+    color: #0f172a;
     font-weight: 600;
+    border: none;
 }
 
-#row1 .btn:last-child:hover,
-#row3 .btn:last-child:hover {
-    background-color: #ffb042;
+.btn[data-value="AC"]:hover {
+    background-color: #fbbf24;
+}
+
+/* Equals button */
+.btn[data-value="="] {
+    background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.btn[data-value="="]:hover {
+    filter: brightness(1.08);
+}
+
+/* Parentheses, decimal, and square root */
+#row4 .btn:not([data-value="0"]) {
+    color: #cbd5e1;
+    background-color: #222d3d;
 }

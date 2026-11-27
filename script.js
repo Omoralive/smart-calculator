@@ -7,11 +7,15 @@ for (let i = 0; i < buttons.length; i++) {
       display.value = "";
       return;
     }
+    else if (value === "del") {
+          display.value = display.value.slice(0, -1);
+          return;
+    }
     else if(value==="="){
         function calculate(expression) {
 
         expression=display.value
-        let tokens = expression.match(/\d+\.?\d*|[()+\-*/]/g)
+        let tokens = expression.match(/\d+\.?\d*|[()+\-*/√]/g);
         tokens = tokens.map(token => {
         return isNaN(token) ? token : Number(token);
                                      });
@@ -31,12 +35,14 @@ for (let i = 0; i < buttons.length; i++) {
       return result;
     }
       if (token === "-") {
-    return -factor();   
+        return -factor();   
     }
       if (token === "+") {
-    return factor();    
+        return factor();    
     }
-
+    if (token === "√") {
+      return Math.sqrt(factor());
+    }
     return Number(token);
     }
 
